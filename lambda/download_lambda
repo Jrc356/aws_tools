@@ -1,0 +1,18 @@
+#!/bin/bash
+
+# Download code
+FUNCTION_NAME=${1}
+echo "Getting code for ${FUNCTION_NAME}"
+aws lambda get-function --function-name "${FUNCTION_NAME}" | grep "Location" | awk -F ": " '{ print $2}' | sed 's/"//g' > ~/${FUNCTION_NAME}.txt
+wget -i ~/${FUNCTION_NAME}.txt -O ./${FUNCTION_NAME}.zip
+
+if [[ ! -d "${FUNCTION_NAME}" ]]
+	 then
+		echo "Creating ${FUNCTION_NAME} directory"
+		mkdir "${FUNCTION_NAME}"
+fi
+
+# Unpack and delete
+echo "cleaning up"
+tar -xf "${FUNCTION_NAME}".zip -C "${FUNCTION_NAME}"
+rm "${FUNCTION_NAME}".zip

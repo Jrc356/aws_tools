@@ -1,0 +1,7 @@
+#!/bin/bash
+FUNCTION_NAME=${1}
+cd "${FUNCTION_NAME}"
+zip -r ../"${FUNCTION_NAME}".zip *
+cd ..
+aws lambda update-function-code --function-name "${FUNCTION_NAME}" --zip-file fileb://"${FUNCTION_NAME}".zip
+rm "${FUNCTION_NAME}".zip
