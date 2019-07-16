@@ -6,7 +6,7 @@ This tool allows for quick uploads to lambda using awscli. It takes one argument
 
 Example Usage:
 ```bash
-./upload_lambda <folder containing function code>
+./upload_lambda "folder/containing/function/code"
 ```
   
 ## download_lambda
